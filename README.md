@@ -80,10 +80,6 @@ To make the game more engaging, consider implementing the following features:
    python number_guessing_game.py
    \`\`\`
 
-## Diagram
-
-![Number Guessing Game Diagram](./NumberGuessingGame.svg)
-
 ## Idea Source
 
 The idea for the Expense Tracker CLI project was inspired
