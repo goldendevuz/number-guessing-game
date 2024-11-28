@@ -1,220 +1,108 @@
-# Task Tracker CLI
+## Number Guessing Game - CLI Project
 
-Task Tracker CLI is a command-line application built in Python to help you manage tasks efficiently. It allows you to add, update, delete, and track tasks, while saving the tasks in a JSON file for persistence.
+### Overview
 
-## Project Links
+The Number Guessing Game is a command-line interface (CLI) based game where the player attempts to guess a randomly
+generated number between 1 and 100. The game provides three difficulty levels: Easy, Medium, and Hard, each affecting
+the number of attempts allowed. The game gives feedback on each incorrect guess, indicating whether the correct number
+is higher or lower than the user's guess.
 
-- **Project Page**: Visit the [Task Tracker project page](https://roadmap.sh/projects/task-tracker) for more information.
-- **Submission Solution**: View my [Task Tracker solution submission](https://roadmap.sh/projects/task-tracker/solutions?u=6740b9f45434bf319a47ee77).
+### How to Play
 
-## Features
+1. **Start the Game**: Run the game from the command line. Upon starting, a welcome message and the rules of the game
+   will be displayed.
 
-- Add new tasks
-- Update task descriptions
-- Delete tasks
-- Mark tasks as in-progress or done
-- List all tasks or filter tasks by status (todo, in-progress, done)
-- Tasks are stored in a `tasks.json` file
+2. **Select Difficulty Level**: Choose the difficulty level:
+    - **Easy**: 10 chances to guess the number.
+    - **Medium**: 5 chances to guess the number.
+    - **Hard**: 3 chances to guess the number.
 
-## Installation
+3. **Enter Your Guess**: Input your guess for the number. The game will provide feedback:
+    - If your guess is **correct**, a congratulatory message will display along with the number of attempts it took to
+      guess correctly.
+    - If your guess is **incorrect**, the game will inform you whether the correct number is greater or less than your
+      guess.
 
-### Prerequisites
+4. **End of Game**: The game ends when you either guess the correct number or run out of chances. At the end of each
+   round, you will be given an option to play again or exit.
 
-- **Python**: Make sure you have Node.js installed. You can download it [here](https://www.python.org/downloads/).
+### Example Gameplay
 
-### Steps
+\`\`\`
+Welcome to the Number Guessing Game!
+I'm thinking of a number between 1 and 100.
+You have 5 chances to guess the correct number.
 
-1. **Clone the repository**:
+Please select the difficulty level:
 
-   ```bash
-   git clone https://github.com/goldendevuz/task-tracker.git
-   cd task-tracker
-   ```
+1. Easy (10 chances)
+2. Medium (5 chances)
+3. Hard (3 chances)
 
-2. **Install dependencies**:
+Enter your choice: 2
 
-   ```bash
-   make i
-   ```
+Great! You have selected the Medium difficulty level.
+Let's start the game!
 
-4. **Link the CLI globally**:
+Enter your guess: 50
+Incorrect! The number is less than 50.
 
-   To use the `task-cli` command globally, run:
+Enter your guess: 25
+Incorrect! The number is greater than 25.
 
-   ```bash
-   make link
-   ```
+Enter your guess: 35
+Incorrect! The number is less than 35.
 
-   This will make the `task-cli` command available system-wide.
+Enter your guess: 30
+Congratulations! You guessed the correct number in 4 attempts.
+\`\`\`
 
-## Usage
+### Additional Features
 
-Once you've linked the CLI, you can use the `task-cli` command to interact with the Task Tracker.
+To make the game more engaging, consider implementing the following features:
 
-### Available Commands
+1. **Multiple Rounds**: Allow users to play multiple rounds of the game without restarting the program. After each
+   round, ask the user if they want to play again.
 
-#### 1. Add a New Task
+2. **Timer**: Add a timer to track how long it takes the user to guess the correct number.
 
-Use the `add` command to create a new task.
+3. **Hint System**: Provide clues if the user is struggling to guess the number. This could be in the form of a range or
+   a "hot/cold" indicator.
 
-```bash
-task-cli add "Task description"
-```
+4. **High Score Tracking**: Keep track of the user's best score, which is the fewest number of attempts taken to guess
+   the correct number on each difficulty level.
 
-**Example**:
+### Getting Started
 
-```bash
-task-cli add "Finish the project report"
-```
+1. Clone the repository to your local machine.
+2. Run the game from the command line using Python:
+   \`\`\`bash
+   python number_guessing_game.py
+   \`\`\`
 
-#### 2. Update a Task
+## Diagram
 
-Use the `update` command to modify the description of an existing task by its ID.
+![Number Guessing Game Diagram](./NumberGuessingGame.svg)
 
-```bash
-task-cli update <task_id> "Updated description"
-```
+## Idea Source
 
-**Example**:
+The idea for the Expense Tracker CLI project was inspired
+by [roadmap.sh's Number Guessing Game project](https://roadmap.sh/projects/number-guessing-game). Visit the link to see
+more details and learn about similar project ideas.
 
-```bash
-task-cli update 1 "Finish the project report and submit"
-```
+### Contribution
 
-#### 3. Delete a Task
+Contributions are welcome! If you have any ideas or improvements for the game, feel free to fork the repository and
+submit a pull request.
 
-Use the `delete` command to remove a task by its ID.
+### License
 
-```bash
-task-cli delete <task_id>
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-**Example**:
+## Contact
 
-```bash
-task-cli delete 1
-```
+For any questions or feedback, please contact [abdulmajidyunusov18@gmail.com].
 
-#### 4. Mark a Task as In Progress
+---
 
-Use the `mark-in-progress` command to update the status of a task to `in-progress`.
-
-```bash
-task-cli mark-in-progress <task_id>
-```
-
-**Example**:
-
-```bash
-task-cli mark-in-progress 1
-```
-
-#### 5. Mark a Task as Done
-
-Use the `mark-done` command to update the status of a task to `done`.
-
-```bash
-task-cli mark-done <task_id>
-```
-
-**Example**:
-
-```bash
-task-cli mark-done 1
-```
-
-#### 6. List All Tasks
-
-Use the `list` command to view all tasks.
-
-```bash
-task-cli list
-```
-
-**Example**:
-
-```bash
-task-cli list
-```
-
-#### 7. List Tasks by Status
-
-You can filter tasks by their status using the `list` command followed by the status (`todo`, `in-progress`, or `done`).
-
-```bash
-task-cli list <status>
-```
-
-**Examples**:
-
-- List all tasks marked as `done`:
-
-  ```bash
-  task-cli list done
-  ```
-
-- List all tasks marked as `in-progress`:
-
-  ```bash
-  task-cli list in-progress
-  ```
-
-- List all tasks that are yet to be done:
-  ```bash
-  task-cli list todo
-  ```
-
-### Task Properties
-
-Each task has the following properties:
-
-- **id**: A unique identifier for the task.
-- **description**: The description of the task.
-- **status**: The status of the task (`todo`, `in-progress`, `done`).
-- **createdAt**: The date and time when the task was created.
-- **updatedAt**: The date and time when the task was last updated.
-
-### Example JSON Structure
-
-Tasks are stored in a JSON file located in the project directory as `tasks.json`. Here's an example of how tasks are stored:
-
-```json
-[
-  {
-    "id": 1,
-    "description": "Finish the project report",
-    "status": "in-progress",
-    "createdAt": "2024-09-10T12:34:56.789Z",
-    "updatedAt": "2024-09-10T14:23:44.456Z"
-  },
-  {
-    "id": 2,
-    "description": "Review the design documents",
-    "status": "done",
-    "createdAt": "2024-09-10T13:45:12.123Z",
-    "updatedAt": "2024-09-10T15:11:22.987Z"
-  }
-]
-```
-
-## Development
-
-### Running the CLI Locally
-
-To test the CLI without linking globally, you can run it using:
-
-```bash
-python main.py <command> [args]
-```
-
-### Testing
-
-Manually test the application by running the various commands listed above. Be sure to check the `tasks.json` file to ensure tasks are saved correctly.
-
-## Contributing
-
-If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are always welcome.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Enjoy the game, and happy guessing!

@@ -1,101 +1,68 @@
-import argparse
-from typing import List, Optional, Union, Any, Tuple
-from colorama import Fore, Style, init
-from enums import Action, Status
-from storage.json_handler import JsonHandler
-from tasks import TaskManager
+"""Welcome to the Number Guessing Game!
+I'm thinking of a number between 1 and 100.
+You have 5 chances to guess the correct number.
 
-# Initialize Colorama
-init(autoreset=True)
+Please select the difficulty level:
+1. Easy (10 chances)
+2. Medium (5 chances)
+3. Hard (3 chances)
 
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "action",
-    choices=[action.value for action in Action],
-    help="The action to perform (add, delete, update, list)",
-)
-parser.add_argument(
-    "params",
-    nargs="*",
-    help="Additional parameters for the action (e.g., task ID, description)",
-)
-args = parser.parse_args()
+Enter your choice: 2
 
-storage: JsonHandler = JsonHandler()
-task_manager: TaskManager = TaskManager(storage)
+Great! You have selected the Medium difficulty level.
+Let's start the game!
 
-def main() -> str | list[Any] | tuple[str, dict]:
-    if args.action == Action.ADD:
-        if len(args.params) != 1:
-            return f"{Fore.RED}Error: The 'add' action requires exactly one argument: the description.{Style.RESET_ALL}"
-        else:
-            description: str = args.params[0]
-            if task_manager.check_availability(description):
-                return f"{Fore.YELLOW}Task already added{Style.RESET_ALL}"
-            else:
-                task = task_manager.add_task(description)
-                return f"{Fore.GREEN}Task added successfully (ID: {task.id}){Style.RESET_ALL}"
-    elif args.action == Action.UPDATE:
-        if len(args.params) != 2:
-            return f"{Fore.RED}Error: The 'update' action requires two arguments: ID and description.{Style.RESET_ALL}"
-        else:
-            task_id: str
-            description: str
-            task_id, description = args.params
-            try:
-                task_id_int: int = int(task_id)
-                if task_manager.check_availability(task_id=task_id_int):
-                    if task_manager.check_exact(task_id=task_id_int, description=description):
-                        return f"{Fore.YELLOW}Task is up to date{Style.RESET_ALL}"
-                    else:
-                        task_manager.update_description(task_id_int, description)
-                        return f"{Fore.GREEN}Task with ID {task_id_int} updated to '{description}'.{Style.RESET_ALL}"
-                return f"{Fore.RED}Task doesn't exist{Style.RESET_ALL}"
-            except ValueError:
-                return f"{Fore.RED}Error: The task ID must be an integer.{Style.RESET_ALL}"
-    elif args.action == Action.DELETE:
-        if len(args.params) != 1:
-            return f"{Fore.RED}Error: The 'delete' action requires exactly one argument: the ID.{Style.RESET_ALL}"
-        else:
-            try:
-                task_id: int = int(args.params[0])
-                if task_manager.check_availability(task_id=task_id):
-                    task_manager.delete_task(task_id)
-                    return f"{Fore.GREEN}Task with ID {task_id} deleted.{Style.RESET_ALL}"
-                else:
-                    return f"{Fore.RED}Task doesn't exist{Style.RESET_ALL}"
-            except ValueError:
-                return f"{Fore.RED}Error: The task ID must be an integer.{Style.RESET_ALL}"
-    elif args.action == Action.LIST:
-        if len(args.params) not in (0, 1):
-            return f"{Fore.RED}Error: The 'list' action requires exactly one argument to filter tasks: the task status.{Style.RESET_ALL}"
-        tasks: dict = task_manager.list_tasks()
-        if args.params:
-            status: str = args.params[0]
-            if not tasks:
-                return f"{Fore.YELLOW}Tasks aren't exist{Style.RESET_ALL}"
-            return [tasks[task] for task in tasks if tasks[task]['status'] == status]
-        else:
-            return f"{Fore.GREEN}Tasks:{Style.RESET_ALL}", tasks
-    elif args.action in (Action.MARK_IN_PROGRESS, Action.MARK_DONE):
-        status: Status = Status.IN_PROGRESS if args.action == Action.MARK_IN_PROGRESS else Status.DONE
-        if len(args.params) != 1:
-            return f"{Fore.RED}Error: This action requires ID.{Style.RESET_ALL}"
-        task_id: str = args.params[0]
-        try:
-            task_id_int: int = int(task_id)
-            if task_manager.check_availability(task_id=task_id_int):
-                if task_manager.check_status(task_id=task_id_int, status=status):
-                    return f"{Fore.YELLOW}Task's status is up to date{Style.RESET_ALL}"
-                else:
-                    task_manager.update_status(task_id=task_id_int, status=status)
-                    return f"{Fore.GREEN}Task updated successfully{Style.RESET_ALL}"
-            return f"{Fore.RED}Task doesn't exist{Style.RESET_ALL}"
-        except ValueError:
-            return f"{Fore.RED}Error: The task ID must be an integer.{Style.RESET_ALL}"
-    else:
-        return f"{Fore.RED}Invalid action.{Style.RESET_ALL}"
+Enter your guess: 50
+Incorrect! The number is less than 50.
 
+Enter your guess: 25
+Incorrect! The number is greater than 25.
+
+Enter your guess: 35
+Incorrect! The number is less than 35.
+
+Enter your guess: 30
+Congratulations! You guessed the correct number in 4 attempts."""
+import random
+
+
+def main() -> None:
+    choice_input: str = input("""Welcome to the Number Guessing Game!
+I'm thinking of a number between 1 and 100.
+You have 5 chances to guess the correct number.
+
+Please select the difficulty level:
+1. Easy (10 chances)
+2. Medium (5 chances)
+3. Hard (3 chances)
+
+Enter your choice: """)
+    choice: int = int(choice_input) if choice_input in ("1", "2", "3") else 0
+    level: str = "Easy" if choice == 1 else "Medium" if choice == 2 else "Hard"
+    if choice:
+        guess_input: str = input(f"""
+Great! You have selected the {level} difficulty level.
+Let's start the game!
+
+Enter your guess: """)
+        answer: int = random.randint(1, 100)
+        max_attempts: int = 10 if choice == 1 else 5 if choice == 2 else 3
+        left_attempts: int = max_attempts - 1
+        while left_attempts > 0:
+            left_attempts -= 1
+            guess: int = int(guess_input) if guess_input in map(str, range(1, 100)) else 0
+            if guess:
+                if guess > answer:
+                    print("Incorrect! The number is less than", guess)
+                elif guess < answer:
+                    print("Incorrect! The number is greater than", guess)
+                elif guess == answer:
+                    print("Congratulations! You guessed the correct number in", max_attempts - left_attempts,
+                          "attempts.")
+                    break
+                guess_input = input("\nEnter your guess: ")
+        if not left_attempts:
+            print("You lose")
 
 if __name__ == "__main__":
-    print(main())
+    main()
