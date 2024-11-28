@@ -1,0 +1,2 @@
+alias number-guess-cli="python main.py"
+number-guess-cli
