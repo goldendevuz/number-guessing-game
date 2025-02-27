@@ -1,5 +1,3 @@
-[![wakatime](https://wakatime.com/badge/user/49489c61-f548-4cec-982d-e443f9ca894f/project/0d564b9b-3869-4bfc-a83c-0018cef66f62.svg)](https://wakatime.com/badge/user/49489c61-f548-4cec-982d-e443f9ca894f/project/0d564b9b-3869-4bfc-a83c-0018cef66f62)
-
 ## Number Guessing Game - CLI Project
 
 ### Overview
