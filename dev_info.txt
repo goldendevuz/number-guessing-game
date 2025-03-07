@@ -1,7 +1,7 @@
 Developer Information  
 ---------------------  
 Name: Yunusov Abdulmajid  
-GitHub: [https://github.com/goldendevuz](https://github.com/goldendevuz)  
+GitHub: https://github.com/goldendevuz  
 Email: goldendevuz@gmail.com  
 
 Project: Number Guessing Game  
