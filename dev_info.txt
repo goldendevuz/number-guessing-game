@@ -1,0 +1,14 @@
+Developer Information  
+---------------------  
+Name: Yunusov Abdulmajid  
+GitHub: [https://github.com/goldendevuz](https://github.com/goldendevuz)  
+Email: goldendevuz@gmail.com  
+
+Project: Number Guessing Game  
+Description: A simple game where the player guesses a randomly generated number.  
+Version: 1.0  
+Date: March 7th, 2005  
+
+Tech Stack  
+----------  
+Language: Python    
